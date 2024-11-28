@@ -1,3 +1,4 @@
+import asyncio
 import strawberry
 
 #from bme280 import BME280
@@ -20,58 +21,40 @@ factor = 2.05
 #bus = SMBus(1)
 #bme280 = BME280(i2c_dev=bus)
 
-#################
-#  API Routes   #
-#################
+########################
+#   Sensor Functions   #
+########################
 
-# temperature route
-#def temperature():
-#    temps = [get_cpu_temperature()] * 4
-#    cpu = get_cpu_temperature()
-#
-#    # Decrease Variations
-#    temps = temps[1:] + [cpu]
-#    avg = sum(temps) / float(len(temps))
-#    raw = bme280.get_temperature()
-#    new_temp = raw - ((avg - raw) / factor)
-#
-#    resp = flask.Response("{:.1f}".format(new_temp))
-#    resp.headers['Access-Control-Allow-Origin'] = 'http://localhost:8081'
-#    
-#    return resp
-#
-## humidity route
-#def humidity():
-#    humidity = bme280.get_humidity()
-#    resp = flask.Response("{:.1f}".format(humidity))
-#    resp.headers['Access-Control-Allow-Origin'] = 'http://localhost:8081'
-#    return resp
-#
-## pressure route
-#def pressure():
-#    pressure = bme280.get_pressure()
-#    resp = flask.Response("{:.1f}".format(pressure))
-#    resp.headers['Access-Control-Allow-Origin'] = 'http://localhost:8081'
-#    return resp
-#
-## Reducing(CO) route
-#def reducing():
-#    co = gas.read_all()
-#    co = co.reducing / 1000
-#    resp = flask.Response("{:.2f}".format(co))
-#    resp.headers['Access-Control-Allow-Origin'] = 'http://localhost:8081'
-#    return resp
-#
-## Ammonia(NH3) route
-#def ammonia():
-#    ammonia = gas.read_all()
-#    ammonia = ammonia.nh3 / 1000
-#    resp = flask.Response("{:.2f}".format(ammonia))
-#    resp.headers['Access-Control-Allow-Origin'] = 'http://localhost:8081'
-#    return resp
-#
-#
-## CPU Temperature Compensation
+async def get_temperature():
+    #temps = [get_cpu_temperature()] * 4
+    #cpu = get_cpu_temperature()
+
+    # Decrease Variations
+    #temps = temps[1:] + [cpu]
+    #avg = sum(temps) / float(len(temps))
+    #raw = bme280.get_temperature()
+    #new_temp = raw - ((avg - raw) / factor)
+
+    #return new_temp
+    return 25.9
+
+async def get_humidity():
+    #return bme280.get_humidity()
+    return 50.1
+
+async def get_pressure():
+    #return bme280.get_pressure()
+    return 421.25
+
+async def get_co():
+    #return gas.read_all().reducing / 1000
+    return 2310.24
+
+async def get_nh3():
+    #return gas.read_all().nh3 / 1000
+    return 1093.79
+
+# CPU Temperature Compensation
 #def get_cpu_temperature():
 #    with open("/sys/class/thermal/thermal_zone0/temp", "r") as f:
 #        temp = f.read()
@@ -88,3 +71,19 @@ class Env:
     pressure: float = strawberry.field(description="Current pressure reading in mmHg")
     co: float = strawberry.field(description="Reducing gas measurement of Carbon Monoxide")
     nh3: float = strawberry.field(description="Concentration measurement of Ammonia gas")
+
+async def get_env_data() -> Env:
+    temperature, humidity, pressure, co, nh3 = await asyncio.gather(
+        get_temperature(),
+        get_humidity(),
+        get_pressure(),
+        get_co(),
+        get_nh3()
+    )
+    return Env(
+        temperature=temperature,
+        humidity=humidity,
+        pressure=pressure,
+        co=co,
+        nh3=nh3
+    )
