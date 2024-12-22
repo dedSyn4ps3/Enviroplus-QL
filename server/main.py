@@ -6,6 +6,8 @@
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from starlette.middleware.base import BaseHTTPMiddleware
+from starlette.responses import Response
 from strawberry.fastapi import GraphQLRouter
 from api.schema import schema
 
@@ -24,6 +26,15 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Custom middleware to set Referrer-Policy header
+class ReferrerPolicyMiddleware(BaseHTTPMiddleware):
+    async def dispatch(self, request, call_next):
+        response = await call_next(request)
+        response.headers['Referrer-Policy'] = 'no-referrer'
+        return response
+
+app.add_middleware(ReferrerPolicyMiddleware)
 
 graphql_router = GraphQLRouter(schema, path="/", graphql_ide="apollo-sandbox")
 
