@@ -6,10 +6,10 @@
 
 <div align="center">
 
-![Python Version](https://img.shields.io/badge/Python-3.11%20%7C%203.12%20%7C%203.13-green?style=plastic&logo=python&logoColor=white)
-![FastAPI Version](https://img.shields.io/badge/FastAPI-0.115.4-orange?style=plastic&logo=fastapi&logoColor=white)
-![Strawberry Version](https://img.shields.io/badge/Strawberry-0.247.0-red?style=plastic&logo=graphql&logoColor=white)
-![OS Version](https://img.shields.io/badge/Raspberry_Pi_OS-12_(Bookworm)-yellow?style=plastic&logo=raspberrypi&logoColor=white)
+![Python Version](https://img.shields.io/badge/Python-3.11%20%7C%203.12%20%7C%203.13-green?style=plastic&logo=python&logoColor=green)
+![FastAPI Version](https://img.shields.io/badge/FastAPI-0.115.4-orange?style=plastic&logo=fastapi&logoColor=orange)
+![Strawberry Version](https://img.shields.io/badge/Strawberry-0.247.0-red?style=plastic&logo=graphql&logoColor=red)
+![OS Version](https://img.shields.io/badge/Raspberry_Pi_OS-12_(Bookworm)-yellow?style=plastic&logo=raspberrypi&logoColor=red)
 
 
 </div>
@@ -142,7 +142,9 @@ $ fastapi run --host 0.0.0.0 --port 8080 server/main.py
 
 ## 🌟 Contributing
 
-It doesn't matter if you're a brand new programmer, or seasoned veteran, we're always looking for folks willing to contribute in any way they can! Since I'm the only maintainer of this project, it can be very easy sometimes for my full-time job to keep me away from projects every so often. It's with the help of you all in the community to point out possible bugs, as well as recommending possible features and updates.
+It doesn't matter if you're a brand new programmer or seasoned veteran, we're always looking for folks willing to contribute in any way they can! 
+
+Since I'm the only maintainer of this project, it can be very easy sometimes for my full-time job to keep me away from projects every so often. It's with the help of you all in the community to point out possible bugs, as well as recommending possible features and updates.
 
 If there's something you think could be refactored, improved, or simply have an idea for something new...reach out!
 
@@ -152,7 +154,9 @@ If there's something you think could be refactored, improved, or simply have an 
 
 ## 📧 Contact
 
-For assistance with any issues, please feel free to either [email us](mailto:support@nullsecurity.tech), or submit a bug report. **If you have an idea pertaining to code changes or possible additions, go ahead and submit a PR if you feel it could be helpful to the project!**
+For assistance with any issues, please feel free to either [email us](mailto:support@nullsecurity.tech), or submit a bug report. 
+
+**If you have an idea pertaining to code changes or possible additions, go ahead and submit a PR if you feel it could be helpful to the project!**
 
 <br>
 
