@@ -1,13 +1,13 @@
 import asyncio
 import strawberry
 
-#from bme280 import BME280
-#from enviroplus import gas
-#
-#try:
-#    from smbus2 import SMBus
-#except ImportError:
-#    from smbus import SMBus
+from bme280 import BME280
+from enviroplus import gas
+
+try:
+    from smbus2 import SMBus
+except ImportError:
+    from smbus import SMBus
 
 
 # Tuning factor for compensation. Decrease this number to adjust the
@@ -18,48 +18,43 @@ factor = 2.05
 #  Initialize Sensor   #
 ########################
 
-#bus = SMBus(1)
-#bme280 = BME280(i2c_dev=bus)
+bus = SMBus(1)
+bme280 = BME280(i2c_dev=bus)
 
 ########################
 #   Sensor Functions   #
 ########################
 
 async def get_temperature():
-    #temps = [get_cpu_temperature()] * 4
-    #cpu = get_cpu_temperature()
+    temps = [get_cpu_temperature()] * 4
+    cpu = get_cpu_temperature()
 
     # Decrease Variations
-    #temps = temps[1:] + [cpu]
-    #avg = sum(temps) / float(len(temps))
-    #raw = bme280.get_temperature()
-    #new_temp = raw - ((avg - raw) / factor)
+    temps = temps[1:] + [cpu]
+    avg = sum(temps) / float(len(temps))
+    raw = bme280.get_temperature()
+    new_temp = raw - ((avg - raw) / factor)
 
-    #return new_temp
-    return 25.9
+    return new_temp
 
 async def get_humidity():
-    #return bme280.get_humidity()
-    return 50.1
+    return bme280.get_humidity()
 
 async def get_pressure():
-    #return bme280.get_pressure()
-    return 421.25
+    return bme280.get_pressure()
 
 async def get_co():
-    #return gas.read_all().reducing / 1000
-    return 2310.24
+    return gas.read_all().reducing / 1000
 
 async def get_nh3():
-    #return gas.read_all().nh3 / 1000
-    return 1093.79
+    return gas.read_all().nh3 / 1000
 
 # CPU Temperature Compensation
-#def get_cpu_temperature():
-#    with open("/sys/class/thermal/thermal_zone0/temp", "r") as f:
-#        temp = f.read()
-#        temp = int(temp) / 1000.0
-#    return temp
+def get_cpu_temperature():
+    with open("/sys/class/thermal/thermal_zone0/temp", "r") as f:
+        temp = f.read()
+        temp = int(temp) / 1000.0
+    return temp
 
 
 @strawberry.type(
