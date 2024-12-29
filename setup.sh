@@ -11,14 +11,23 @@ NC='\033[0m' # No Color
 echo "🏗️ ${BOLD}Creating and activating virtual environment...${NC}"
 
 # Create a Python virtual environment
-python3 -m venv venv
+python3 -m venv .env
 
 # Activate the virtual environment
-source venv/bin/activate
+source .env/bin/activate
+
+CURRENT_DIR=$(basename "$PWD")
+
+# Set the path to requirements.txt based on the current directory
+if [ "$CURRENT_DIR" == "backend" ]; then
+    REQUIREMENTS_FILE="requirements.txt"
+else
+    REQUIREMENTS_FILE="backend/requirements.txt"
+fi
 
 # Install Python dependencies
 echo "📦 ${BOLD}${CYAN}Installing dependencies...${NC}"
-pip install -r requirements.txt
+pip install -r "$REQUIREMENTS_FILE"
 
 echo
 echo

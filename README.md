@@ -30,11 +30,11 @@ A GraphQL server allows clients to request exactly the data they need, making it
 
 FastAPI is a modern, fast (high-performance) web framework for building APIs with Python based on standard Python type hints. It bolsters the efficiency of our GraphQL server implementation in a number of ways:
 
-- Asynchronous Capability: FastAPI supports asynchronous programming, allowing the server to handle many requests concurrently without blocking. This is particularly useful for I/O-bound operations like database queries.
-- Automatic Validation: FastAPI automatically validates request data against the defined types, reducing the need for manual validation and improving reliability.
-- High Performance: Built on top of Starlette for the web parts and Pydantic for the data parts, FastAPI is designed to be one of the fastest Python frameworks available.
-- Ease of Use: FastAPI's use of Python type hints makes it easy to write and maintain code, while also providing excellent editor support and auto-completion.
-- No Useless Data: GraphQL allows clients to request exactly the data they need, making it more efficient than traditional REST APIs.
+- **Asynchronous Capability:** Supports asynchronous programming, allowing the server to handle many requests concurrently without blocking. This is particularly useful for I/O-bound operations like database queries.
+- **Automatic Validation:** Automatically validates request data against the defined types, reducing the need for manual validation and improving reliability.
+- **High Performance:** Built on top of Starlette for the web parts and Pydantic for the data parts, FastAPI is designed to be one of the fastest Python frameworks available.
+- **Ease of Use:** The use of Python type hints makes it easy to write and maintain code, while also providing excellent editor support and auto-completion.
+- **No Useless Data:** Allows clients to request exactly the data they need, making it more efficient than traditional REST APIs.
 
 <br>
 
@@ -113,6 +113,12 @@ Since Apollo can use data from any source, it makes for an excellent production-
 
 ## ⚙️ Installation
 
+<div align="center">
+    <img src="images/remember.png" alt="Keep in mind" width="800"/>
+</div>
+
+<br>
+
 **Clone the repository:**
 ```sh
 $ git clone https://github.com/dedsyn4ps3/enviroplus-ql.git
@@ -137,6 +143,8 @@ $ fastapi dev server/main.py
 # Launch in production mode, binding to all interfaces and a specific port
 $ fastapi run --host 0.0.0.0 --port 8080 server/main.py
 ```
+
+> **Instead of running these commands manually, simply run the `setup.sh` script****
 
 <br>
 
