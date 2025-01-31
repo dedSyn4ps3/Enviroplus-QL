@@ -19,7 +19,7 @@
 <hr>
 <div align="center"><strong>🚨 IMPORTANT NOTE 🚨 
 
- This Python module is meant to be used as a backend for our <b>`Enviroplus Web`</b> dashboard application, and other related projects that utilize the Enviroplus Raspberry Pi HAT made by Pimoroni.</div>
+ This Python module is meant to be used as a backend for our <b>`Enviro Web`</b> dashboard application, and other related projects that utilize the Enviro(+) Raspberry Pi HAT made by Pimoroni.</div>
 <hr>
 
 <br>
@@ -49,19 +49,22 @@ The schema for this project is defined in [`api/schema.py`](api/schema.py), and 
 
 ```python
 import strawberry
-from .types.env import Env
-from .types.env import get_env_data
+from .types.env import Env, EnvPlus
+from .types.env import get_env_data, get_env_data_plus
 
 @strawberry.type
 class Query:
-    @strawberry.field(description="Query current environmental data")
+    @strawberry.field(description="Query current environmental data for Standard Enviro HAT")
     async def current_readings(self) -> Env:
         return await get_env_data()
+    @strawberry.field(description="Query current environmental data for Enviro+ HAT")
+    async def current_readings_plus(self) -> EnvPlus:
+        return await get_env_data_plus()
 
 schema = strawberry.Schema(query=Query)
 ```
 
-This schema utilizes a callback function that returns an `Env` object containing the current sensor readings at the time of the query. The class declaration for this object can be found in [`api/types/env.py`](api/types/env.py):
+This schema utilizes a callback function that returns either an `Env` or `EnvPlus` object containing the current sensor readings at the time of the query. The class declarations for these objects can be found in [`api/types/env.py`](api/types/env.py):
 
 ```python
 @strawberry.type(
@@ -71,24 +74,13 @@ class Env:
     temperature: float = strawberry.field(description="Current temperature reading in Celsius")
     humidity: float = strawberry.field(description="Current humidity reading")
     pressure: float = strawberry.field(description="Current pressure reading in mmHg")
+
+@strawberry.type(
+    description="A snapshot of current environmental data with additional gas measurements"
+)
+class EnvPlus(Env):
     co: float = strawberry.field(description="Reducing gas measurement of Carbon Monoxide")
     nh3: float = strawberry.field(description="Concentration measurement of Ammonia gas")
-
-async def get_env_data() -> Env:
-    temperature, humidity, pressure, co, nh3 = await asyncio.gather(
-        get_temperature(),
-        get_humidity(),
-        get_pressure(),
-        get_co(),
-        get_nh3()
-    )
-    return Env(
-        temperature=temperature,
-        humidity=humidity,
-        pressure=pressure,
-        co=co,
-        nh3=nh3
-    )
 ```
 
 <br>
@@ -111,13 +103,13 @@ Since Apollo can use data from any source, it makes for an excellent production-
 
 <br>
 
-## ⚙️ Installation
-
 <div align="center">
     <img src="images/remember.png" alt="Keep in mind" width="800"/>
 </div>
 
 <br>
+
+## ⚙️ Installation
 
 **Clone the repository:**
 ```sh
@@ -144,7 +136,7 @@ $ fastapi dev server/main.py
 $ fastapi run --host 0.0.0.0 --port 8080 server/main.py
 ```
 
-> **Instead of running these commands manually, simply run the `setup.sh` script****
+> **Instead of running these commands manually, simply run the `setup.sh` script**
 
 <br>
 

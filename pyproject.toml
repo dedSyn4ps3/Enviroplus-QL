@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "enviroplus-ql"
-version = "0.4.1"
+version = "0.4.2"
 description = "A GraphQL server for querying Enviroplus sensor data"
 authors = ["Ed Rutherford <erutherford@nullsecurity.tech>"]
 license = "MIT"
