@@ -1,6 +1,6 @@
 # server/main.py
 ################################################
-#             Enviro+ Web Backend              #
+#              Enviro Web Backend              #
 #               GraphQL FastAPI                #
 ################################################
 
